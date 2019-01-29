@@ -483,14 +483,14 @@ public class AddressBook {
      */
     private static ArrayList<String[]> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
+        ArrayList<String> lowerCaseKeyWords = new ArrayList<>();
         for (String keyword : keywords) {
             String lowerCaseKeyword = keyword.toLowerCase();
-            keywords.remove(keyword);
-            keywords.add(lowerCaseKeyword);
+            lowerCaseKeyWords.add(lowerCaseKeyword);
         }
         for (String[] person : getAllPersonsInAddressBook()) {
             final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person).toLowerCase()));
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            if (!Collections.disjoint(wordsInName, lowerCaseKeyWords)) {
                 matchedPersons.add(person);
             }
         }
